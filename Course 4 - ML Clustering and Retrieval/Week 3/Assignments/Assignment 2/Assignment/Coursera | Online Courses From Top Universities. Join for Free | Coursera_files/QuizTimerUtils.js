@@ -1,0 +1,1 @@
+define("bundles/quiz-common/utils/QuizTimerUtils",["require","exports","module"],function(require,exports,module){"use strict";function calcTimeWarn(r){var u=0;return r>0&&30*e>=r?u=2*e:r>30*e&&i>=r?u=5*e:r>i&&(u=10*e),u}var e=6e4,i=60*e;module.exports={calcTimeWarn:calcTimeWarn}});

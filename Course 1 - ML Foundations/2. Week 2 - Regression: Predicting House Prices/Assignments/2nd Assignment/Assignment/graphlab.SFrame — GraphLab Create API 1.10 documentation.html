@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!-->
+<html style="" class="js flexbox canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths wf-museosans-n1-active wf-active" lang="en"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>graphlab.SFrame — GraphLab Create API 1.10 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="https://turi.com/products/create/docs/_static/favicon.ico">
+  
+
+  
+  <link href="graphlab.SFrame%20%E2%80%94%20GraphLab%20Create%20API%201.10%20documentation_files/css.css" rel="stylesheet" type="text/css">
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="graphlab.SFrame%20%E2%80%94%20GraphLab%20Create%20API%201.10%20documentation_files/theme.css" type="text/css">
+
+  
+    <link rel="top" title="GraphLab Create API 1.10 documentation" href="https://turi.com/products/create/docs/index.html">
+        <link rel="up" title="Data Engineering" href="https://turi.com/products/create/docs/graphlab.data_structures.html">
+        <link rel="next" title="graphlab.SGraph" href="https://turi.com/products/create/docs/generated/graphlab.SGraph.html">
+        <link rel="prev" title="graphlab.SArray" href="https://turi.com/products/create/docs/generated/graphlab.SArray.html"> 
+
+  
+  <script src="graphlab.SFrame%20%E2%80%94%20GraphLab%20Create%20API%201.10%20documentation_files/426799.js" id="hs-analytics"></script><script src="graphlab.SFrame%20%E2%80%94%20GraphLab%20Create%20API%201.10%20documentation_files/analytics.js" async=""></script><script src="graphlab.SFrame%20%E2%80%94%20GraphLab%20Create%20API%201.10%20documentation_files/sp.js" async=""></script><script src="graphlab.SFrame%20%E2%80%94%20GraphLab%20Create%20API%201.10%20documentation_files/modernizr.js"></script>
+
+  
+  <script type="text/javascript" src="graphlab.SFrame%20%E2%80%94%20GraphLab%20Create%20API%201.10%20documentation_files/hzm6svm.js"></script>
+  <style type="text/css">.tk-museo-sans{font-family:"museo-sans",sans-serif;}</style><style type="text/css">@font-face{font-family:museo-sans;src:url(https://use.typekit.net/af/3386c8/00000000000000000000e800/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n1&token=JQIMN5I6ckF%2FybE8wIDBYd7u5h5YXrTDAlnXDqa5bq71WMrV7W6ZNf%2FNhf4NhFWnwbUJxzIuqLYoCwUN5A3o4ixC%2F2%2B%2BzQw0fzeRqCqUYUSGLK%2BaD7SXC%2FlUMQg7mg1AUy9paRoihbkulry3crSoBFm62PM9J6uGxQ%2FSUKqtssHcRF%2FYgG6FZk8HjyQ%2Fe%2FNI6a%2FJ4z8AwyUXATpHt21HpBleslTjuzOGXSxZFTIn16DYKRGD164FhP0Otfop0DQpo8nwZ13Ed%2B6QXKOhTOh75s7YTaSXUUUJthnlw8fj1hSnJCQDsIJ0tiLdeL7Xg6pUgXmR6U6TMgiIHWorDibiGuKAPdnMrDTkAiXsqzv4CppKmdSXQYiD%2B2PtlR6QQmtbw8FXNqTKWIm0rI4WNHxPduJJ52Gw3UwzXGCGHF9pP9c%3D) format("woff2"),url(https://use.typekit.net/af/3386c8/00000000000000000000e800/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n1&token=JQIMN5I6ckF%2FybE8wIDBYd7u5h5YXrTDAlnXDqa5bq71WMrV7W6ZNf%2FNhf4NhFWnwbUJxzIuqLYoCwUN5A3o4ixC%2F2%2B%2BzQw0fzeRqCqUYUSGLK%2BaD7SXC%2FlUMQg7mg1AUy9paRoihbkulry3crSoBFm62PM9J6uGxQ%2FSUKqtssHcRF%2FYgG6FZk8HjyQ%2Fe%2FNI6a%2FJ4z8AwyUXATpHt21HpBleslTjuzOGXSxZFTIn16DYKRGD164FhP0Otfop0DQpo8nwZ13Ed%2B6QXKOhTOh75s7YTaSXUUUJthnlw8fj1hSnJCQDsIJ0tiLdeL7Xg6pUgXmR6U6TMgiIHWorDibiGuKAPdnMrDTkAiXsqzv4CppKmdSXQYiD%2B2PtlR6QQmtbw8FXNqTKWIm0rI4WNHxPduJJ52Gw3UwzXGCGHF9pP9c%3D) format("woff"),url(https://use.typekit.net/af/3386c8/00000000000000000000e800/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n1&token=JQIMN5I6ckF%2FybE8wIDBYd7u5h5YXrTDAlnXDqa5bq71WMrV7W6ZNf%2FNhf4NhFWnwbUJxzIuqLYoCwUN5A3o4ixC%2F2%2B%2BzQw0fzeRqCqUYUSGLK%2BaD7SXC%2FlUMQg7mg1AUy9paRoihbkulry3crSoBFm62PM9J6uGxQ%2FSUKqtssHcRF%2FYgG6FZk8HjyQ%2Fe%2FNI6a%2FJ4z8AwyUXATpHt21HpBleslTjuzOGXSxZFTIn16DYKRGD164FhP0Otfop0DQpo8nwZ13Ed%2B6QXKOhTOh75s7YTaSXUUUJthnlw8fj1hSnJCQDsIJ0tiLdeL7Xg6pUgXmR6U6TMgiIHWorDibiGuKAPdnMrDTkAiXsqzv4CppKmdSXQYiD%2B2PtlR6QQmtbw8FXNqTKWIm0rI4WNHxPduJJ52Gw3UwzXGCGHF9pP9c%3D) format("opentype");font-weight:100;font-style:normal;}</style><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  
+  <script type="text/javascript" src="graphlab.SFrame%20%E2%80%94%20GraphLab%20Create%20API%201.10%20documentation_files/metrics.js"></script>
+
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1px; bottom: 2px; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body class="wy-body-for-nav" role="document"><div style="display: none;" id="MathJax_Message"></div>
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        
+          <a href="https://turi.com/products/create/docs/index.html" class="fa fa-home"> GraphLab Create API</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input name="q" placeholder="Search docs" type="text">
+    <input name="check_keywords" value="yes" type="hidden">
+    <input name="area" value="default" type="hidden">
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.data_structures.html">Data Engineering</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.data_structures.html#id1">Data Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.data_structures.html#data-types">Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.data_structures.html#aggregation-summarization">Aggregation &amp; Summarization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.toolkits.html">Machine Learning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.toolkits.html#machine-learning-applications">Machine Learning Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.toolkits.html#essential-machine-learning-models">Essential Machine Learning Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.toolkits.html#advanced-deep-learning-with-mxnet-beta">Advanced Deep Learning with MXNet (Beta)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.toolkits.html#feature-engineering">Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.toolkits.html#model-evaluation">Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.toolkits.html#utilities-and-extensions">Utilities and Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.toolkits.html#distributed-model-training">Distributed Model Training</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.deploy.html">Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.deploy.html#distributed-asynchronous-execution">Distributed/Asynchronous Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.deploy.html#ec2-cluster">Ec2 Cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.deploy.html#hadoop-cluster">Hadoop Cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.deploy.html#session-management">Session Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.deploy.html#utility">Utility</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.canvas.html">Visualization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="https://turi.com/products/create/docs/graphlab.canvas.html#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+      
+        <span class="powered-by">
+          <a id="footer-logo" href="https://turi.com/"><img src="graphlab.SFrame%20%E2%80%94%20GraphLab%20Create%20API%201.10%20documentation_files/turi_logo_white.png"></a>
+        </span>
+      
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="https://turi.com/products/create/docs/index.html">GraphLab Create API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="https://turi.com/products/create/docs/index.html">Docs</a> »</li>
+      
+          <li><a href="https://turi.com/products/create/docs/graphlab.data_structures.html">Data Engineering</a> »</li>
+      
+    <li>graphlab.SFrame</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="graphlab-sframe">
+<h1>graphlab.SFrame<a class="headerlink" href="#graphlab-sframe" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="graphlab.SFrame">
+<em class="property">class </em><code class="descclassname">graphlab.</code><code class="descname">SFrame</code><span class="sig-paren">(</span><em>data=list()</em>, <em>format='auto'</em><span class="sig-paren">)</span><a class="headerlink" href="#graphlab.SFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>A tabular, column-mutable dataframe object that can scale to big data. The
+data in SFrame is stored column-wise on the GraphLab Server side, and is
+stored on persistent storage (e.g. disk) to avoid being constrained by
+memory size.  Each column in an SFrame is a size-immutable
+<a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SArray.html#graphlab.SArray" title="graphlab.SArray"><code class="xref py py-class docutils literal"><span class="pre">SArray</span></code></a>, but SFrames are mutable in that columns can be
+added and subtracted with ease.  An SFrame essentially acts as an ordered
+dict of SArrays.</p>
+<p>Currently, we support constructing an SFrame from the following data
+formats:</p>
+<ul class="simple">
+<li>csv file (comma separated value)</li>
+<li>sframe directory archive (A directory where an sframe was saved
+previously)</li>
+<li>general text file (with csv parsing options, See <a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.read_csv.html#graphlab.SFrame.read_csv" title="graphlab.SFrame.read_csv"><code class="xref py py-meth docutils literal"><span class="pre">read_csv()</span></code></a>)</li>
+<li>a Python dictionary</li>
+<li>pandas.DataFrame</li>
+<li>JSON</li>
+<li>Apache Avro</li>
+<li>PySpark RDD</li>
+</ul>
+<p>and from the following sources:</p>
+<ul class="simple">
+<li>your local file system</li>
+<li>the GraphLab Server’s file system</li>
+<li>HDFS</li>
+<li>Amazon S3</li>
+<li>HTTP(S).</li>
+</ul>
+<p>Only basic examples of construction are covered here. For more information
+and examples, please see the <a class="reference external" href="https://turi.com/learn/userguide/index.html#Working_with_data_Tabular_data">User Guide</a>, <a class="reference external" href="https://turi.com/learn/translator">API Translator</a>, <a class="reference external" href="https://turi.com/learn/how-to">How-Tos</a>, and data science <a class="reference external" href="https://turi.com/learn/gallery">Gallery</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>data</strong> : array | pandas.DataFrame | string | dict, optional</p>
+<blockquote>
+<div><p>The actual interpretation of this field is dependent on the <code class="docutils literal"><span class="pre">format</span></code>
+parameter. If <code class="docutils literal"><span class="pre">data</span></code> is an array or Pandas DataFrame, the contents are
+stored in the SFrame. If <code class="docutils literal"><span class="pre">data</span></code> is a string, it is interpreted as a
+file. Files can be read from local file system or urls (local://,
+hdfs://, s3://, http://).</p>
+</div></blockquote>
+<p><strong>format</strong> : string, optional</p>
+<blockquote class="last">
+<div><p>Format of the data. The default, “auto” will automatically infer the
+input data format. The inference rules are simple: If the data is an
+array or a dataframe, it is associated with ‘array’ and ‘dataframe’
+respectively. If the data is a string, it is interpreted as a file, and
+the file extension is used to infer the file format. The explicit
+options are:</p>
+<ul class="simple">
+<li>“auto”</li>
+<li>“array”</li>
+<li>“dict”</li>
+<li>“sarray”</li>
+<li>“dataframe”</li>
+<li>“csv”</li>
+<li>“tsv”</li>
+<li>“sframe”.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.read_csv.html#graphlab.SFrame.read_csv" title="graphlab.SFrame.read_csv"><code class="xref py py-obj docutils literal"><span class="pre">read_csv</span></code></a></dt>
+<dd>Create a new SFrame from a csv file. Preferred for text and CSV 
+formats, because it has a lot more options for controlling the parser.</dd>
+<dt><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.save.html#graphlab.SFrame.save" title="graphlab.SFrame.save"><code class="xref py py-obj docutils literal"><span class="pre">save</span></code></a></dt>
+<dd>Save an SFrame for later use.</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>When reading from HDFS on Linux we must guess the location of your java
+installation. By default, we will use the location pointed to by the
+JAVA_HOME environment variable.  If this is not set, we check many common
+installation paths. You may use two environment variables to override
+this behavior.  GRAPHLAB_JAVA_HOME allows you to specify a specific java
+installation and overrides JAVA_HOME.  GRAPHLAB_LIBJVM_DIRECTORY
+overrides all and expects the exact directory that your preferred
+libjvm.so file is located.  Use this ONLY if you’d like to use a
+non-standard JVM.</li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">graphlab</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">graphlab</span> <span class="kn">import</span> <span class="n">SFrame</span>
+</pre></div>
+</div>
+<p><strong>Construction</strong></p>
+<p>Construct an SFrame from a dataframe and transfers the dataframe object
+across the network.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span> <span class="o">=</span> <span class="n">SFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Construct an SFrame from a local csv file (only works for local server).</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span> <span class="o">=</span> <span class="n">SFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s1">'~/mydata/foo.csv'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Construct an SFrame from a csv file on Amazon S3. This requires the
+environment variables: <em>AWS_ACCESS_KEY_ID</em> and <em>AWS_SECRET_ACCESS_KEY</em> to be
+set before the python session started. Alternatively, you can use
+<code class="xref py py-func docutils literal"><span class="pre">graphlab.aws.set_credentials()</span></code> to set the credentials after
+python is started and <code class="xref py py-func docutils literal"><span class="pre">graphlab.aws.get_credentials()</span></code> to verify
+these environment variables.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span> <span class="o">=</span> <span class="n">SFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s1">'s3://mybucket/foo.csv'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Read from HDFS using a specific java installation (environment variable
+only applies when using Linux)</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'GRAPHLAB_JAVA_HOME'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'/my/path/to/java'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">graphlab</span> <span class="kn">import</span> <span class="n">SFrame</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span> <span class="o">=</span> <span class="n">SFrame</span><span class="p">(</span><span class="s2">"hdfs://mycluster.example.com:8020/user/myname/coolfile.txt"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>An SFrame can be constructed from a dictionary of values or SArrays:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span> <span class="o">=</span> <span class="n">gl</span><span class="o">.</span><span class="n">SFrame</span><span class="p">({</span><span class="s1">'id'</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="s1">'val'</span><span class="p">:[</span><span class="s1">'A'</span><span class="p">,</span><span class="s1">'B'</span><span class="p">,</span><span class="s1">'C'</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span>
+<span class="go">Columns:</span>
+<span class="go">    id  int</span>
+<span class="go">    val str</span>
+<span class="go">Rows: 3</span>
+<span class="go">Data:</span>
+<span class="go">   id  val</span>
+<span class="go">0  1   A</span>
+<span class="go">1  2   B</span>
+<span class="go">2  3   C</span>
+</pre></div>
+</div>
+<p>Or equivalently:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ids</span> <span class="o">=</span> <span class="n">SArray</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vals</span> <span class="o">=</span> <span class="n">SArray</span><span class="p">([</span><span class="s1">'A'</span><span class="p">,</span><span class="s1">'B'</span><span class="p">,</span><span class="s1">'C'</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span> <span class="o">=</span> <span class="n">SFrame</span><span class="p">({</span><span class="s1">'id'</span><span class="p">:</span><span class="n">ids</span><span class="p">,</span><span class="s1">'val'</span><span class="p">:</span><span class="n">vals</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>It can also be constructed from an array of SArrays in which case column
+names are automatically assigned.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ids</span> <span class="o">=</span> <span class="n">SArray</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vals</span> <span class="o">=</span> <span class="n">SArray</span><span class="p">([</span><span class="s1">'A'</span><span class="p">,</span><span class="s1">'B'</span><span class="p">,</span><span class="s1">'C'</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span> <span class="o">=</span> <span class="n">SFrame</span><span class="p">([</span><span class="n">ids</span><span class="p">,</span> <span class="n">vals</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span>
+<span class="go">Columns:</span>
+<span class="go">    X1 int</span>
+<span class="go">    X2 str</span>
+<span class="go">Rows: 3</span>
+<span class="go">Data:</span>
+<span class="go">   X1  X2</span>
+<span class="go">0  1   A</span>
+<span class="go">1  2   B</span>
+<span class="go">2  3   C</span>
+</pre></div>
+</div>
+<p>If the SFrame is constructed from a list of values, an SFrame of a single
+column is constructed.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span> <span class="o">=</span> <span class="n">SFrame</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span>
+<span class="go">Columns:</span>
+<span class="go">    X1 int</span>
+<span class="go">Rows: 3</span>
+<span class="go">Data:</span>
+<span class="go">   X1</span>
+<span class="go">0  1</span>
+<span class="go">1  2</span>
+<span class="go">2  3</span>
+</pre></div>
+</div>
+<p><strong>Parsing</strong></p>
+<p>The <a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.read_csv.html#graphlab.SFrame.read_csv" title="graphlab.SFrame.read_csv"><code class="xref py py-func docutils literal"><span class="pre">graphlab.SFrame.read_csv()</span></code></a> is quite powerful and, can be
+used to import a variety of row-based formats.</p>
+<p>First, some simple cases:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;&gt;&gt; !cat ratings.csv
+user_id,movie_id,rating
+10210,1,1
+10213,2,5
+10217,2,2
+10102,1,3
+10109,3,4
+10117,5,2
+10122,2,4
+10114,1,5
+10125,1,1
+&gt;&gt;&gt; gl.SFrame.read_csv('ratings.csv')
+Columns:
+  user_id   int
+  movie_id  int
+  rating    int
+Rows: 9
+Data:
++---------+----------+--------+
+| user_id | movie_id | rating |
++---------+----------+--------+
+|  10210  |    1     |   1    |
+|  10213  |    2     |   5    |
+|  10217  |    2     |   2    |
+|  10102  |    1     |   3    |
+|  10109  |    3     |   4    |
+|  10117  |    5     |   2    |
+|  10122  |    2     |   4    |
+|  10114  |    1     |   5    |
+|  10125  |    1     |   1    |
++---------+----------+--------+
+[9 rows x 3 columns]
+</pre></div>
+</div>
+<p>Delimiters can be specified, if ”,” is not the delimiter, for instance
+space ‘ ‘ in this case. Only single character delimiters are supported.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;&gt;&gt; !cat ratings.csv
+user_id movie_id rating
+10210 1 1
+10213 2 5
+10217 2 2
+10102 1 3
+10109 3 4
+10117 5 2
+10122 2 4
+10114 1 5
+10125 1 1
+&gt;&gt;&gt; gl.SFrame.read_csv('ratings.csv', delimiter=' ')
+</pre></div>
+</div>
+<p>By default, “NA” or a missing element are interpreted as missing values.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;&gt;&gt; !cat ratings2.csv
+user,movie,rating
+"tom",,1
+harry,5,
+jack,2,2
+bill,,
+&gt;&gt;&gt; gl.SFrame.read_csv('ratings2.csv')
+Columns:
+  user  str
+  movie int
+  rating    int
+Rows: 4
+Data:
++---------+-------+--------+
+|   user  | movie | rating |
++---------+-------+--------+
+|   tom   |  None |   1    |
+|  harry  |   5   |  None  |
+|   jack  |   2   |   2    |
+| missing |  None |  None  |
++---------+-------+--------+
+[4 rows x 3 columns]
+</pre></div>
+</div>
+<p>Furthermore due to the dictionary types and list types, can handle parsing
+of JSON-like formats.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;&gt;&gt; !cat ratings3.csv
+business, categories, ratings
+"Restaurant 1", [1 4 9 10], {"funny":5, "cool":2}
+"Restaurant 2", [], {"happy":2, "sad":2}
+"Restaurant 3", [2, 11, 12], {}
+&gt;&gt;&gt; gl.SFrame.read_csv('ratings3.csv')
+Columns:
+business    str
+categories  array
+ratings dict
+Rows: 3
+Data:
++--------------+--------------------------------+-------------------------+
+|   business   |           categories           |         ratings         |
++--------------+--------------------------------+-------------------------+
+| Restaurant 1 | array('d', [1.0, 4.0, 9.0, ... | {'funny': 5, 'cool': 2} |
+| Restaurant 2 |           array('d')           |  {'sad': 2, 'happy': 2} |
+| Restaurant 3 | array('d', [2.0, 11.0, 12.0])  |            {}           |
++--------------+--------------------------------+-------------------------+
+[3 rows x 3 columns]
+</pre></div>
+</div>
+<p>The list and dictionary parsers are quite flexible and can absorb a
+variety of purely formatted inputs. Also, note that the list and dictionary
+types are recursive, allowing for arbitrary values to be contained.</p>
+<p>All these are valid lists:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;&gt;&gt; !cat interesting_lists.csv
+list
+[]
+[1,2,3]
+[1;2,3]
+[1 2 3]
+[{a:b}]
+["c",d, e]
+[[a]]
+&gt;&gt;&gt; gl.SFrame.read_csv('interesting_lists.csv')
+Columns:
+  list  list
+Rows: 7
+Data:
++-----------------+
+|       list      |
++-----------------+
+|        []       |
+|    [1, 2, 3]    |
+|    [1, 2, 3]    |
+|    [1, 2, 3]    |
+|   [{'a': 'b'}]  |
+| ['c', 'd', 'e'] |
+|     [['a']]     |
++-----------------+
+[7 rows x 1 columns]
+</pre></div>
+</div>
+<p>All these are valid dicts:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;&gt;&gt; !cat interesting_dicts.csv
+dict
+{"classic":1,"dict":1}
+{space:1 seperated:1}
+{emptyvalue:}
+{}
+{:}
+{recursive1:[{a:b}]}
+{:[{:[a]}]}
+&gt;&gt;&gt; gl.SFrame.read_csv('interesting_dicts.csv')
+Columns:
+  dict  dict
+Rows: 7
+Data:
++------------------------------+
+|             dict             |
++------------------------------+
+|  {'dict': 1, 'classic': 1}   |
+| {'seperated': 1, 'space': 1} |
+|     {'emptyvalue': None}     |
+|              {}              |
+|         {None: None}         |
+| {'recursive1': [{'a': 'b'}]} |
+| {None: [{None: array('d')}]} |
++------------------------------+
+[7 rows x 1 columns]
+</pre></div>
+</div>
+<p><strong>Saving</strong></p>
+<p>Save and load the sframe in native format.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">'mysframedir'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf2</span> <span class="o">=</span> <span class="n">graphlab</span><span class="o">.</span><span class="n">load_sframe</span><span class="p">(</span><span class="s1">'mysframedir'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Column Manipulation</strong></p>
+<p>An SFrame is composed of a collection of columns of SArrays, and individual
+SArrays can be extracted easily. For instance given an SFrame:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span> <span class="o">=</span> <span class="n">SFrame</span><span class="p">({</span><span class="s1">'id'</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="s1">'val'</span><span class="p">:[</span><span class="s1">'A'</span><span class="p">,</span><span class="s1">'B'</span><span class="p">,</span><span class="s1">'C'</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span>
+<span class="go">Columns:</span>
+<span class="go">    id  int</span>
+<span class="go">    val str</span>
+<span class="go">Rows: 3</span>
+<span class="go">Data:</span>
+<span class="go">   id  val</span>
+<span class="go">0  1   A</span>
+<span class="go">1  2   B</span>
+<span class="go">2  3   C</span>
+</pre></div>
+</div>
+<p>The “id” column can be extracted using:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span>
+<span class="go">dtype: int</span>
+<span class="go">Rows: 3</span>
+<span class="go">[1, 2, 3]</span>
+</pre></div>
+</div>
+<p>And can be deleted using:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">sf</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Multiple columns can be selected by passing a list of column names:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span> <span class="o">=</span> <span class="n">SFrame</span><span class="p">({</span><span class="s1">'id'</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="s1">'val'</span><span class="p">:[</span><span class="s1">'A'</span><span class="p">,</span><span class="s1">'B'</span><span class="p">,</span><span class="s1">'C'</span><span class="p">],</span><span class="s1">'val2'</span><span class="p">:[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span>
+<span class="go">Columns:</span>
+<span class="go">    id   int</span>
+<span class="go">    val  str</span>
+<span class="go">    val2 int</span>
+<span class="go">Rows: 3</span>
+<span class="go">Data:</span>
+<span class="go">   id  val val2</span>
+<span class="go">0  1   A   5</span>
+<span class="go">1  2   B   6</span>
+<span class="go">2  3   C   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf2</span> <span class="o">=</span> <span class="n">sf</span><span class="p">[[</span><span class="s1">'id'</span><span class="p">,</span><span class="s1">'val'</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf2</span>
+<span class="go">Columns:</span>
+<span class="go">    id  int</span>
+<span class="go">    val str</span>
+<span class="go">Rows: 3</span>
+<span class="go">Data:</span>
+<span class="go">   id  val</span>
+<span class="go">0  1   A</span>
+<span class="go">1  2   B</span>
+<span class="go">2  3   C</span>
+</pre></div>
+</div>
+<p>You can also select columns using types or a list of types:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sf2</span> <span class="o">=</span> <span class="n">sf</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf2</span>
+<span class="go">Columns:</span>
+<span class="go">    id   int</span>
+<span class="go">    val2 int</span>
+<span class="go">Rows: 3</span>
+<span class="go">Data:</span>
+<span class="go">   id  val2</span>
+<span class="go">0  1   5</span>
+<span class="go">1  2   6</span>
+<span class="go">2  3   7</span>
+</pre></div>
+</div>
+<p>Or a mix of types and names:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sf2</span> <span class="o">=</span> <span class="n">sf</span><span class="p">[[</span><span class="s1">'id'</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf2</span>
+<span class="go">Columns:</span>
+<span class="go">    id  int</span>
+<span class="go">    val str</span>
+<span class="go">Rows: 3</span>
+<span class="go">Data:</span>
+<span class="go">   id  val</span>
+<span class="go">0  1   A</span>
+<span class="go">1  2   B</span>
+<span class="go">2  3   C</span>
+</pre></div>
+</div>
+<p>The same mechanism can be used to re-order columns:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span> <span class="o">=</span> <span class="n">SFrame</span><span class="p">({</span><span class="s1">'id'</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="s1">'val'</span><span class="p">:[</span><span class="s1">'A'</span><span class="p">,</span><span class="s1">'B'</span><span class="p">,</span><span class="s1">'C'</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span>
+<span class="go">Columns:</span>
+<span class="go">    id  int</span>
+<span class="go">    val str</span>
+<span class="go">Rows: 3</span>
+<span class="go">Data:</span>
+<span class="go">   id  val</span>
+<span class="go">0  1   A</span>
+<span class="go">1  2   B</span>
+<span class="go">2  3   C</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span><span class="p">[[</span><span class="s1">'val'</span><span class="p">,</span><span class="s1">'id'</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span>
+<span class="go">Columns:</span>
+<span class="go">    val str</span>
+<span class="go">    id  int</span>
+<span class="go">Rows: 3</span>
+<span class="go">Data:</span>
+<span class="go">   val id</span>
+<span class="go">0  A   1</span>
+<span class="go">1  B   2</span>
+<span class="go">2  C   3</span>
+</pre></div>
+</div>
+<p><strong>Element Access and Slicing</strong></p>
+<p>SFrames can be accessed by integer keys just like a regular python list.
+Such operations may not be fast on large datasets so looping over an SFrame
+should be avoided.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span> <span class="o">=</span> <span class="n">SFrame</span><span class="p">({</span><span class="s1">'id'</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="s1">'val'</span><span class="p">:[</span><span class="s1">'A'</span><span class="p">,</span><span class="s1">'B'</span><span class="p">,</span><span class="s1">'C'</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">{'id': 1, 'val': 'A'}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">{'id': 3, 'val': 'C'}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+<span class="go">IndexError: SFrame index out of range</span>
+</pre></div>
+</div>
+<p>Negative indices can be used to access elements from the tail of the array</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># returns the last element</span>
+<span class="go">{'id': 3, 'val': 'C'}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="c1"># returns the second to last element</span>
+<span class="go">{'id': 2, 'val': 'B'}</span>
+</pre></div>
+</div>
+<p>The SFrame also supports the full range of python slicing operators:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span><span class="p">[</span><span class="mi">1000</span><span class="p">:]</span> <span class="c1"># Returns an SFrame containing rows 1000 to the end</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span> <span class="c1"># Returns an SFrame containing rows 0 to row 999 inclusive</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1000</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="c1"># Returns an SFrame containing rows 0 to row 1000 in steps of 2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span><span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">:]</span> <span class="c1"># Returns an SFrame containing last 100 rows</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span><span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">sf</span><span class="p">):</span><span class="mi">2</span><span class="p">]</span> <span class="c1"># Returns an SFrame containing last 100 rows in steps of 2</span>
+</pre></div>
+</div>
+<p><strong>Logical Filter</strong></p>
+<p>An SFrame can be filtered using</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sframe</span><span class="p">[</span><span class="n">binary_filter</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>where sframe is an SFrame and binary_filter is an SArray of the same length.
+The result is a new SFrame which contains only rows of the SFrame where its
+matching row in the binary_filter is non zero.</p>
+<p>This permits the use of boolean operators that can be used to perform
+logical filtering operations. For instance, given an SFrame</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span>
+<span class="go">Columns:</span>
+<span class="go">    id  int</span>
+<span class="go">    val str</span>
+<span class="go">Rows: 3</span>
+<span class="go">Data:</span>
+<span class="go">   id  val</span>
+<span class="go">0  1   A</span>
+<span class="go">1  2   B</span>
+<span class="go">2  3   C</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span><span class="p">[(</span><span class="n">sf</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">sf</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">)]</span>
+<span class="go">Columns:</span>
+<span class="go">    id  int</span>
+<span class="go">    val str</span>
+<span class="go">Rows: 3</span>
+<span class="go">Data:</span>
+<span class="go">   id  val</span>
+<span class="go">0  1   A</span>
+<span class="go">1  2   B</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SArray.html#graphlab.SArray" title="graphlab.SArray"><code class="xref py py-class docutils literal"><span class="pre">SArray</span></code></a> for more details on the use of the logical
+filter.</p>
+<p>This can also be used more generally to provide filtering capability which
+is otherwise not expressible with simple boolean functions. For instance:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span><span class="p">[</span><span class="n">sf</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="go">Columns:</span>
+<span class="go">    id  int</span>
+<span class="go">    val str</span>
+<span class="go">Rows: 3</span>
+<span class="go">Data:</span>
+<span class="go">   id  val</span>
+<span class="go">0  1   A</span>
+<span class="go">1  2   B</span>
+</pre></div>
+</div>
+<p>Or alternatively:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span><span class="p">[</span><span class="n">sf</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+<blockquote>
+<div>Create an SFrame from a Python dictionary.</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">graphlab</span> <span class="kn">import</span> <span class="n">SFrame</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span> <span class="o">=</span> <span class="n">SFrame</span><span class="p">({</span><span class="s1">'id'</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="s1">'val'</span><span class="p">:[</span><span class="s1">'A'</span><span class="p">,</span><span class="s1">'B'</span><span class="p">,</span><span class="s1">'C'</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span>
+<span class="go">Columns:</span>
+<span class="go">    id  int</span>
+<span class="go">    val str</span>
+<span class="go">Rows: 3</span>
+<span class="go">Data:</span>
+<span class="go">   id  val</span>
+<span class="go">0  1   A</span>
+<span class="go">1  2   B</span>
+<span class="go">2  3   C</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<div class="wy-table-responsive"><table class="longtable docutils" border="1">
+<colgroup>
+<col width="10%">
+<col width="90%">
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.add_column.html#graphlab.SFrame.add_column" title="graphlab.SFrame.add_column"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.add_column</span></code></a>(data[,&nbsp;name])</td>
+<td>Add a column to this SFrame.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.add_columns.html#graphlab.SFrame.add_columns" title="graphlab.SFrame.add_columns"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.add_columns</span></code></a>(data[,&nbsp;namelist])</td>
+<td>Adds multiple columns to this SFrame.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.add_row_number.html#graphlab.SFrame.add_row_number" title="graphlab.SFrame.add_row_number"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.add_row_number</span></code></a>([column_name,&nbsp;start])</td>
+<td>Returns a new SFrame with a new column that numbers each row sequentially.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.append.html#graphlab.SFrame.append" title="graphlab.SFrame.append"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.append</span></code></a>(other)</td>
+<td>Add the rows of an SFrame to the end of this SFrame.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.apply.html#graphlab.SFrame.apply" title="graphlab.SFrame.apply"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.apply</span></code></a>(fn[,&nbsp;dtype,&nbsp;seed])</td>
+<td>Transform each row to an <a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SArray.html#graphlab.SArray" title="graphlab.SArray"><code class="xref py py-class docutils literal"><span class="pre">SArray</span></code></a> according to a specified function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.column_names.html#graphlab.SFrame.column_names" title="graphlab.SFrame.column_names"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.column_names</span></code></a>()</td>
+<td>The name of each column in the SFrame.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.column_types.html#graphlab.SFrame.column_types" title="graphlab.SFrame.column_types"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.column_types</span></code></a>()</td>
+<td>The type of each column in the SFrame.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.copy.html#graphlab.SFrame.copy" title="graphlab.SFrame.copy"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.copy</span></code></a>()</td>
+<td>Returns a shallow copy of the sframe.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.dropna.html#graphlab.SFrame.dropna" title="graphlab.SFrame.dropna"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.dropna</span></code></a>([columns,&nbsp;how])</td>
+<td>Remove missing values from an SFrame.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.dropna_split.html#graphlab.SFrame.dropna_split" title="graphlab.SFrame.dropna_split"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.dropna_split</span></code></a>([columns,&nbsp;how])</td>
+<td>Split rows with missing values from this SFrame.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.dtype.html#graphlab.SFrame.dtype" title="graphlab.SFrame.dtype"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.dtype</span></code></a>()</td>
+<td>The type of each column.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.export_csv.html#graphlab.SFrame.export_csv" title="graphlab.SFrame.export_csv"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.export_csv</span></code></a>(filename[,&nbsp;delimiter,&nbsp;...])</td>
+<td>Writes an SFrame to a CSV file.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.export_json.html#graphlab.SFrame.export_json" title="graphlab.SFrame.export_json"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.export_json</span></code></a>(filename[,&nbsp;orient])</td>
+<td>Writes an SFrame to a JSON file.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.fillna.html#graphlab.SFrame.fillna" title="graphlab.SFrame.fillna"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.fillna</span></code></a>(column,&nbsp;value)</td>
+<td>Fill all missing values with a given value in a given column.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.filter_by.html#graphlab.SFrame.filter_by" title="graphlab.SFrame.filter_by"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.filter_by</span></code></a>(values,&nbsp;column_name[,&nbsp;exclude])</td>
+<td>Filter an SFrame by values inside an iterable object.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.flat_map.html#graphlab.SFrame.flat_map" title="graphlab.SFrame.flat_map"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.flat_map</span></code></a>(column_names,&nbsp;fn[,&nbsp;...])</td>
+<td>Map each row of the SFrame to multiple rows in a new SFrame via a function.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.from_odbc.html#graphlab.SFrame.from_odbc" title="graphlab.SFrame.from_odbc"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.from_odbc</span></code></a>(db,&nbsp;sql[,&nbsp;verbose])</td>
+<td>Convert a table or query from a database to an SFrame.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.from_rdd.html#graphlab.SFrame.from_rdd" title="graphlab.SFrame.from_rdd"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.from_rdd</span></code></a>(rdd,&nbsp;cur_sc)</td>
+<td>Convert a Spark RDD into an SFrame.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.from_sql.html#graphlab.SFrame.from_sql" title="graphlab.SFrame.from_sql"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.from_sql</span></code></a>(conn,&nbsp;sql_statement[,&nbsp;...])</td>
+<td>Convert the result of a SQL database query to an SFrame.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.groupby.html#graphlab.SFrame.groupby" title="graphlab.SFrame.groupby"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.groupby</span></code></a>(key_columns,&nbsp;operations,&nbsp;*args)</td>
+<td>Perform a group on the key_columns followed by aggregations on the columns listed in operations.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.head.html#graphlab.SFrame.head" title="graphlab.SFrame.head"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.head</span></code></a>([n])</td>
+<td>The first n rows of the SFrame.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.is_materialized.html#graphlab.SFrame.is_materialized" title="graphlab.SFrame.is_materialized"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.is_materialized</span></code></a>()</td>
+<td>Returns whether or not the SFrame has been materialized.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.join.html#graphlab.SFrame.join" title="graphlab.SFrame.join"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.join</span></code></a>(right[,&nbsp;on,&nbsp;how])</td>
+<td>Merge two SFrames.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.materialize.html#graphlab.SFrame.materialize" title="graphlab.SFrame.materialize"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.materialize</span></code></a>()</td>
+<td>For an SFrame that is lazily evaluated, force the persistence of the SFrame to disk, committing all lazy evaluated operations.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.num_cols.html#graphlab.SFrame.num_cols" title="graphlab.SFrame.num_cols"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.num_cols</span></code></a>()</td>
+<td>The number of columns in this SFrame.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.num_columns.html#graphlab.SFrame.num_columns" title="graphlab.SFrame.num_columns"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.num_columns</span></code></a>()</td>
+<td>The number of columns in this SFrame.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.num_rows.html#graphlab.SFrame.num_rows" title="graphlab.SFrame.num_rows"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.num_rows</span></code></a>()</td>
+<td>The number of rows in this SFrame.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.pack_columns.html#graphlab.SFrame.pack_columns" title="graphlab.SFrame.pack_columns"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.pack_columns</span></code></a>([columns,&nbsp;...])</td>
+<td>Pack columns of the current SFrame into one single column.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.print_rows.html#graphlab.SFrame.print_rows" title="graphlab.SFrame.print_rows"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.print_rows</span></code></a>([num_rows,&nbsp;num_columns,&nbsp;...])</td>
+<td>Print the first M rows and N columns of the SFrame in human readable format.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.random_split.html#graphlab.SFrame.random_split" title="graphlab.SFrame.random_split"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.random_split</span></code></a>(fraction[,&nbsp;seed])</td>
+<td>Randomly split the rows of an SFrame into two SFrames.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.read_csv.html#graphlab.SFrame.read_csv" title="graphlab.SFrame.read_csv"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.read_csv</span></code></a>(url[,&nbsp;delimiter,&nbsp;header,&nbsp;...])</td>
+<td>Constructs an SFrame from a CSV file or a path to multiple CSVs.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.read_csv_with_errors.html#graphlab.SFrame.read_csv_with_errors" title="graphlab.SFrame.read_csv_with_errors"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.read_csv_with_errors</span></code></a>(url[,&nbsp;...])</td>
+<td>Constructs an SFrame from a CSV file or a path to multiple CSVs, and
+ returns a pair containing the SFrame and a dict of filenames to SArrays
+ indicating for each file, what are the incorrectly parsed lines 
+encountered.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.read_json.html#graphlab.SFrame.read_json" title="graphlab.SFrame.read_json"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.read_json</span></code></a>(url[,&nbsp;orient])</td>
+<td>Reads a JSON file representing a table into an SFrame.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.remove_column.html#graphlab.SFrame.remove_column" title="graphlab.SFrame.remove_column"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.remove_column</span></code></a>(name)</td>
+<td>Remove a column from this SFrame.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.remove_columns.html#graphlab.SFrame.remove_columns" title="graphlab.SFrame.remove_columns"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.remove_columns</span></code></a>(column_names)</td>
+<td>Remove one or more columns from this SFrame.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.rename.html#graphlab.SFrame.rename" title="graphlab.SFrame.rename"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.rename</span></code></a>(names)</td>
+<td>Rename the given columns.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.sample.html#graphlab.SFrame.sample" title="graphlab.SFrame.sample"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.sample</span></code></a>(fraction[,&nbsp;seed])</td>
+<td>Sample the current SFrame’s rows.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.save.html#graphlab.SFrame.save" title="graphlab.SFrame.save"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.save</span></code></a>(filename[,&nbsp;format])</td>
+<td>Save the SFrame to a file system for later use.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.select_column.html#graphlab.SFrame.select_column" title="graphlab.SFrame.select_column"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.select_column</span></code></a>(key)</td>
+<td>Get a reference to the <a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SArray.html#graphlab.SArray" title="graphlab.SArray"><code class="xref py py-class docutils literal"><span class="pre">SArray</span></code></a> that corresponds with the given key.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.select_columns.html#graphlab.SFrame.select_columns" title="graphlab.SFrame.select_columns"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.select_columns</span></code></a>(keylist)</td>
+<td>Selects all columns where the name of the column or the type of column is included in the keylist.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.show.html#graphlab.SFrame.show" title="graphlab.SFrame.show"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.show</span></code></a>([columns,&nbsp;view,&nbsp;x,&nbsp;y])</td>
+<td>Visualize the SFrame with GraphLab Create <a class="reference internal" href="https://turi.com/products/create/docs/graphlab.canvas.html#module-graphlab.canvas" title="graphlab.canvas"><code class="xref py py-mod docutils literal"><span class="pre">canvas</span></code></a>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.sort.html#graphlab.SFrame.sort" title="graphlab.SFrame.sort"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.sort</span></code></a>(sort_columns[,&nbsp;ascending])</td>
+<td>Sort current SFrame by the given columns, using the given sort order.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.split_datetime.html#graphlab.SFrame.split_datetime" title="graphlab.SFrame.split_datetime"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.split_datetime</span></code></a>(expand_column[,&nbsp;...])</td>
+<td>Splits a datetime column of SFrame to multiple columns, with each value in a separate column.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.stack.html#graphlab.SFrame.stack" title="graphlab.SFrame.stack"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.stack</span></code></a>(column_name[,&nbsp;new_column_name,&nbsp;...])</td>
+<td>Convert a “wide” column of an SFrame to one or two “tall” columns by stacking all values.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.swap_columns.html#graphlab.SFrame.swap_columns" title="graphlab.SFrame.swap_columns"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.swap_columns</span></code></a>(column_1,&nbsp;column_2)</td>
+<td>Swap the columns with the given names.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.tail.html#graphlab.SFrame.tail" title="graphlab.SFrame.tail"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.tail</span></code></a>([n])</td>
+<td>The last n rows of the SFrame.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.to_dataframe.html#graphlab.SFrame.to_dataframe" title="graphlab.SFrame.to_dataframe"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.to_dataframe</span></code></a>()</td>
+<td>Convert this SFrame to pandas.DataFrame.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.to_numpy.html#graphlab.SFrame.to_numpy" title="graphlab.SFrame.to_numpy"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.to_numpy</span></code></a>()</td>
+<td>Converts this SFrame to a numpy array</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.to_odbc.html#graphlab.SFrame.to_odbc" title="graphlab.SFrame.to_odbc"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.to_odbc</span></code></a>(db,&nbsp;table_name[,&nbsp;...])</td>
+<td>Convert an SFrame to a table in a database.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.to_rdd.html#graphlab.SFrame.to_rdd" title="graphlab.SFrame.to_rdd"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.to_rdd</span></code></a>(sc[,&nbsp;number_of_partitions])</td>
+<td>Convert the current SFrame to the Spark RDD.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.to_spark_dataframe.html#graphlab.SFrame.to_spark_dataframe" title="graphlab.SFrame.to_spark_dataframe"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.to_spark_dataframe</span></code></a>(sc,&nbsp;sql[,&nbsp;...])</td>
+<td>Convert the current SFrame to the Spark DataFrame.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.to_sql.html#graphlab.SFrame.to_sql" title="graphlab.SFrame.to_sql"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.to_sql</span></code></a>(conn,&nbsp;table_name[,&nbsp;...])</td>
+<td>Convert an SFrame to a single table in a SQL database.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.topk.html#graphlab.SFrame.topk" title="graphlab.SFrame.topk"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.topk</span></code></a>(column_name[,&nbsp;k,&nbsp;reverse])</td>
+<td>Get top k rows according to the given column.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.unique.html#graphlab.SFrame.unique" title="graphlab.SFrame.unique"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.unique</span></code></a>()</td>
+<td>Remove duplicate rows of the SFrame.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.unpack.html#graphlab.SFrame.unpack" title="graphlab.SFrame.unpack"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.unpack</span></code></a>(unpack_column[,&nbsp;...])</td>
+<td>Expand one column of this SFrame to multiple columns with each value in a separate column.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.unstack.html#graphlab.SFrame.unstack" title="graphlab.SFrame.unstack"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.unstack</span></code></a>(column[,&nbsp;new_column_name])</td>
+<td>Concatenate values from one or two columns into one column, grouping by all other columns.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="rubric">Attributes</p>
+<div class="wy-table-responsive"><table class="longtable docutils" border="1">
+<colgroup>
+<col width="10%">
+<col width="90%">
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="https://turi.com/products/create/docs/generated/graphlab.SFrame.shape.html#graphlab.SFrame.shape" title="graphlab.SFrame.shape"><code class="xref py py-obj docutils literal"><span class="pre">SFrame.shape</span></code></a></td>
+<td>The shape of the SFrame, in a tuple.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="https://turi.com/products/create/docs/generated/graphlab.SGraph.html" class="btn btn-neutral float-right" title="graphlab.SGraph">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="https://turi.com/products/create/docs/generated/graphlab.SArray.html" class="btn btn-neutral" title="graphlab.SArray"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr>
+
+  <div role="contentinfo">
+    <p>
+        © Copyright 2016, Turi.
+      Last updated on Jul 06, 2016.
+    </p>
+  </div>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.10',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  false
+        };
+    </script>
+      <script type="text/javascript" src="graphlab.SFrame%20%E2%80%94%20GraphLab%20Create%20API%201.10%20documentation_files/jquery.js"></script>
+      <script type="text/javascript" src="graphlab.SFrame%20%E2%80%94%20GraphLab%20Create%20API%201.10%20documentation_files/underscore.js"></script>
+      <script type="text/javascript" src="graphlab.SFrame%20%E2%80%94%20GraphLab%20Create%20API%201.10%20documentation_files/doctools.js"></script>
+      <script type="text/javascript" src="graphlab.SFrame%20%E2%80%94%20GraphLab%20Create%20API%201.10%20documentation_files/MathJax.js"></script>
+
+  
+
+  <script type="text/javascript" src="graphlab.SFrame%20%E2%80%94%20GraphLab%20Create%20API%201.10%20documentation_files/theme.js"></script>
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+
+</body></html>
